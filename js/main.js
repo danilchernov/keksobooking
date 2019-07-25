@@ -30,7 +30,7 @@ var pickRandom = function (arr) {
 
 var generateAds = function (amount) {
   for (var i = 1; i <= amount; i++) {
-    ads.push({
+    var ad = {
       author: {
         avatar: 'img/avatars/user0' + i + '.png'
       },
@@ -41,7 +41,9 @@ var generateAds = function (amount) {
         x: Math.floor(Math.random() * map.offsetWidth),
         y: Math.floor(Math.random() * 500) + 130
       }
-    });
+    };
+
+    ads.push(ad);
   }
 
   return ads;
@@ -51,6 +53,8 @@ generateAds(8);
 
 var renderPin = function (pin) {
   var pinElement = pinTemplate.cloneNode(true);
+  var pinElementImg = pinElement.querySelector('img');
+
   /* Coordinates */
   var pinCoordX = 'left:' + (pin.location.x - PIN_WIDTH / 2) + 'px';
   var pinCoordY = 'top:' + (pin.location.y - PIN_HEIGHT) + 'px';
@@ -58,8 +62,8 @@ var renderPin = function (pin) {
   pinElement.setAttribute('style', pinCoordX + '; ' + pinCoordY);
 
   /* Setup img attrs */
-  pinElement.querySelector('img').src = pin.author.avatar;
-  pinElement.querySelector('img').alt = pin.offer.type;
+  pinElementImg.src = pin.author.avatar;
+  pinElementImg.alt = pin.offer.type;
 
   return pinElement;
 };
